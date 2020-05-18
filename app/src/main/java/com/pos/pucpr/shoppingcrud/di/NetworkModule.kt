@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 
 const val BASE_URL = "http://192.168.0.12:8080/api/"
 
-val createRemoteModule: Module = module {
+val createNetworkModule: Module = module {
     single {
         createRetrofit(
             baseUrl = BASE_URL,
