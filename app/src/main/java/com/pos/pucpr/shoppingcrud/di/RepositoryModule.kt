@@ -6,5 +6,5 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 var createRepositoryModule: Module = module {
-    factory<ShoppingRepository> { ShoppingRepositoryImpl(get()) }
+    factory<ShoppingRepository> { ShoppingRepositoryImpl(service = get()) }
 }

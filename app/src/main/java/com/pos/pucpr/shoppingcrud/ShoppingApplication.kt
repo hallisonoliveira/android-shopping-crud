@@ -4,6 +4,7 @@ import android.app.Application
 import com.pos.pucpr.shoppingcrud.di.createDomainModule
 import com.pos.pucpr.shoppingcrud.di.createNetworkModule
 import com.pos.pucpr.shoppingcrud.di.createRepositoryModule
+import com.pos.pucpr.shoppingcrud.di.createUiModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,7 +20,8 @@ class ShoppingApplication : Application() {
             modules(
                 createNetworkModule,
                 createRepositoryModule,
-                createDomainModule
+                createDomainModule,
+                createUiModule
             )
         }
 
