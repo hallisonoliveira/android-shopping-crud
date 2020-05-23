@@ -2,9 +2,9 @@ package com.pos.pucpr.shoppingcrud.ui.viewdata
 
 
 data class ShoppingViewData(
-    val id: String?,
-    val name: String,
-    val amount: Int,
-    val brand: String,
-    val shelfLife: String
+    var id: String?,
+    var name: String,
+    var amount: Int,
+    var brand: String,
+    var shelfLife: String
 )

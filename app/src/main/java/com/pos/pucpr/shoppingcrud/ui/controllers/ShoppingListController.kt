@@ -14,6 +14,9 @@ class ShoppingListController : TypedEpoxyController<List<ShoppingViewData>>() {
                 id(it.id)
                 name(it.name)
                 amount(it.amount)
+                clickListener { _, _, _, _ ->
+                    listener?.onClickListener(it)
+                }
             }
         }
     }

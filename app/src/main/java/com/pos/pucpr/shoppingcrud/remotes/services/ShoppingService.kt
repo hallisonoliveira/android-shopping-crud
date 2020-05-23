@@ -12,7 +12,7 @@ interface ShoppingService {
     @GET("shopping")
     suspend fun getAll(): ResponseDTO<List<ShoppingDTO>>
 
-    @GET("shopping")
+    @GET("shopping/{id}")
     suspend fun getById(@Path("id") id: String): ResponseDTO<ShoppingDTO>?
 
     @DELETE("shopping")

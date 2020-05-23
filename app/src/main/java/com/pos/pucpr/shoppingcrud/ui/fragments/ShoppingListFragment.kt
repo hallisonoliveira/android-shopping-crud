@@ -7,24 +7,25 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.pos.pucpr.shoppingcrud.common.State
 import com.pos.pucpr.shoppingcrud.databinding.ShoppingListFragmentBinding
 import com.pos.pucpr.shoppingcrud.ui.controllers.ShoppingListController
 import com.pos.pucpr.shoppingcrud.ui.viewModels.ShoppingListViewModel
 import com.pos.pucpr.shoppingcrud.ui.viewdata.ShoppingViewData
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ShoppingListFragment : Fragment(), ShoppingListController.OnClickListener {
 
     private val viewModel: ShoppingListViewModel by viewModel()
     private lateinit var binding: ShoppingListFragmentBinding
-    private lateinit var controller: ShoppingListController
+
+    private val controller: ShoppingListController by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        controller = ShoppingListController().also {
-            it.setListener(this)
-        }
+        controller.setListener(this)
     }
 
     override fun onCreateView(
@@ -60,6 +61,10 @@ class ShoppingListFragment : Fragment(), ShoppingListController.OnClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+
+        binding.fabAddItem.setOnClickListener {
+            navigateToShoppingFragment(id = null)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -76,6 +81,15 @@ class ShoppingListFragment : Fragment(), ShoppingListController.OnClickListener 
         binding.progressBar.isVisible = isVisible
     }
 
-    override fun onClickListener(shoppingItem: ShoppingViewData) {}
+    override fun onClickListener(shoppingItem: ShoppingViewData) {
+        navigateToShoppingFragment(id = shoppingItem.id)
+    }
+
+    private fun navigateToShoppingFragment(id: String?) {
+        findNavController().navigate(
+            ShoppingListFragmentDirections
+                .actionShoppingListFragmentToShoppingFragment(id)
+        )
+    }
 
 }

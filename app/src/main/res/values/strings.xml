@@ -2,4 +2,10 @@
     <string name="app_name">ShoppingCrud</string>
     <string name="label_name">Nome:</string>
     <string name="label_amount">Quantidade:</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_amount">Quantidade</string>
+    <string name="hint_brand">Marca</string>
+    <string name="hint_shelf_life">Validade</string>
+    <string name="action_save">Salvar</string>
+    <string name="hint_id">Id</string>
 </resources>
