@@ -8,7 +8,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.pos.pucpr.shoppingcrud.R
 import com.pos.pucpr.shoppingcrud.common.State
+import com.pos.pucpr.shoppingcrud.common.extensions.showDialog
 import com.pos.pucpr.shoppingcrud.databinding.ShoppingListFragmentBinding
 import com.pos.pucpr.shoppingcrud.ui.controllers.ShoppingListController
 import com.pos.pucpr.shoppingcrud.ui.viewModels.ShoppingListViewModel
@@ -52,6 +54,13 @@ class ShoppingListFragment : Fragment(), ShoppingListController.OnClickListener 
                 }
             }
         })
+        viewModel.deleteShoppingState.observe(viewLifecycleOwner, Observer { state ->
+            when (state) {
+                is State.Success -> {
+                    viewModel.fetchShopping()
+                }
+            }
+        })
     }
 
     private fun loadShopping(shopping: List<ShoppingViewData>) {
@@ -85,10 +94,30 @@ class ShoppingListFragment : Fragment(), ShoppingListController.OnClickListener 
         navigateToShoppingFragment(id = shoppingItem.id)
     }
 
+    override fun onDeleteListener(shoppingItem: ShoppingViewData) {
+        shoppingItem.id?.let { id ->
+            showDeleteDialog {
+                viewModel.deleteShopping(id = id)
+            }
+        }
+    }
+
     private fun navigateToShoppingFragment(id: String?) {
         findNavController().navigate(
             ShoppingListFragmentDirections
                 .actionShoppingListFragmentToShoppingFragment(id)
+        )
+    }
+
+    private fun showDeleteDialog(onConfirmed: () -> Unit) {
+        requireContext().showDialog(
+            title = R.string.title_delete_shopping,
+            message = R.string.message_delete_shopping,
+            positiveButton = R.string.action_confirm,
+            negativeButton = R.string.action_cancel,
+            onPositiveButtonClick = {
+                onConfirmed.invoke()
+            }
         )
     }
 

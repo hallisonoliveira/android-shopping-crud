@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.pos.pucpr.shoppingcrud.common.State
 import com.pos.pucpr.shoppingcrud.databinding.ShoppingFragmentBinding
@@ -75,6 +76,7 @@ class ShoppingFragment : Fragment() {
                 is State.Error -> showLoading(isVisible = false)
                 is State.Success -> {
                     showLoading(isVisible = false)
+                    findNavController().navigateUp()
                 }
             }
         })

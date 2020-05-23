@@ -2,6 +2,7 @@ package com.pos.pucpr.shoppingcrud.remotes.services
 
 import com.pos.pucpr.shoppingcrud.remotes.dtos.ResponseDTO
 import com.pos.pucpr.shoppingcrud.remotes.dtos.ShoppingDTO
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ShoppingService {
@@ -15,8 +16,8 @@ interface ShoppingService {
     @GET("shopping/{id}")
     suspend fun getById(@Path("id") id: String): ResponseDTO<ShoppingDTO>?
 
-    @DELETE("shopping")
-    suspend fun deleteById(id: String)
+    @DELETE("shopping/{id}")
+    suspend fun deleteById(@Path("id") id: String): Response<Unit>
 
     @PUT("shopping")
     suspend fun update(@Body shopping: ShoppingDTO): ResponseDTO<ShoppingDTO>

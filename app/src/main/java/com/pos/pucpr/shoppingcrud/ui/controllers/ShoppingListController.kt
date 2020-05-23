@@ -17,6 +17,9 @@ class ShoppingListController : TypedEpoxyController<List<ShoppingViewData>>() {
                 clickListener { _, _, _, _ ->
                     listener?.onClickListener(it)
                 }
+                deleteListener { _, _, _, _ ->
+                    listener?.onDeleteListener(it)
+                }
             }
         }
     }
@@ -27,6 +30,7 @@ class ShoppingListController : TypedEpoxyController<List<ShoppingViewData>>() {
 
     interface OnClickListener {
         fun onClickListener(shoppingItem: ShoppingViewData)
+        fun onDeleteListener(shoppingItem: ShoppingViewData)
     }
 
 }
